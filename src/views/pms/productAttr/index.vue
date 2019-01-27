@@ -136,7 +136,7 @@
         this.getList();
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', '提示', {
+        this.$confirm('是否要删除该属性', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -164,29 +164,30 @@
         this.$router.push({path: '/pms/productAttrList',query:{cid:row.id,cname:row.name,type:1}})
       },
       handleConfirm(formName){
+        var _this = this;
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let data = new URLSearchParams();
-            data.append("name",this.productAttrCate.name);
-            if(this.dialogTitle==="添加品牌"){
+            data.append("name",_this.productAttrCate.name);
+            if(_this.dialogTitle==="添加类型"){
               createProductAttrCate(data).then(response=>{
                 this.$message({
                   message: '添加成功',
                   type: 'success',
                   duration:1000
                 });
-                this.dialogVisible = false;
-                this.getList();
+                _this.dialogVisible = false;
+                _this.getList();
               });
             }else{
               updateProductAttrCate(this.productAttrCate.id,data).then(response=>{
-                this.$message({
+                _this.$message({
                   message: '修改成功',
                   type: 'success',
                   duration:1000
                 });
-                this.dialogVisible = false;
-                this.getList();
+                _this.dialogVisible = false;
+                _this.getList();
               });
             }
           } else {
