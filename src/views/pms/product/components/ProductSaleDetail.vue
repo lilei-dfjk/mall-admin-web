@@ -242,9 +242,9 @@
         if (productLadderList.length === 1) {
           productLadderList.pop();
           productLadderList.push({
-            count: 0,
-            discount: 0,
-            price: 0
+            logisticType: '',
+            ruleType: '',
+            ruleBrandType: ''
           })
         } else {
           productLadderList.splice(index, 1);

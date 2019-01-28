@@ -3,22 +3,30 @@
     <el-form :model="value" ref="productRuleForm" label-width="120px" style="width: 600px" size="small">
 
       <el-form-item >
-        <el-table :data="value.productLadderList"
+        <el-table :data="value.productRuleLadderList"
                   style="width: 80%" border>
           <el-table-column
-            label="数量"
+            label="物流"
             align="center"
             width="120">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.count"></el-input>
+              <el-input v-model="scope.row.logisticType"></el-input>
             </template>
           </el-table-column>
           <el-table-column
-            label="折扣"
+            label="物流大类规则"
             align="center"
             width="120">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.discount"></el-input>
+              <el-input v-model="scope.row.ruleType"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="物流小类规则"
+            align="center"
+            width="120">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.ruleBrandType"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -111,7 +119,7 @@
           this.selectServiceList.push(Number(ids[i]));
         }
       },
-      handleRemoveProductLadder(index, row) {
+      handleRemoveProductRuleLadder(index, row) {
         let productLadderList = this.value.productLadderList;
         if (productLadderList.length === 1) {
           productLadderList.pop();
@@ -124,7 +132,7 @@
           productLadderList.splice(index, 1);
         }
       },
-      handleAddProductLadder(index, row) {
+      handleAddProductRuleLadder(index, row) {
         let productLadderList = this.value.productLadderList;
         if (productLadderList.length < 3) {
           productLadderList.push({
