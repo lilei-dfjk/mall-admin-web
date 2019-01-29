@@ -2,30 +2,30 @@
   <div style="margin-top: 50px">
     <el-form :model="value" ref="productRuleForm" label-width="120px" style="width: 600px" size="small">
 
-      <el-form-item >
-        <el-table :data="productRuleLadderList"
-                  style="width: 80%" border>
+      <el-form-item>
+        <el-table :data="value.productLogisticRuleParamList"
+                  style="width: 100%" border>
           <el-table-column
             label="物流"
             align="center"
-            width="120">
+            width="100">
             <template slot-scope="scope">
               中环
-              <el-input v-show="false" v-model="scope.row.logisticType"></el-input>
+              <el-input v-show="false" v-model="value.logisticType"></el-input>
             </template>
           </el-table-column>
           <el-table-column
             label="物流规则"
             align="center"
-            width="120">
+            width="400">
             <template slot-scope="scope">
-              <el-cascader v-model="scope.row.ruleType"
-               :options="zhRuleList"
-                   @change="handleBrandRuleChange">
-                
+              <el-cascader v-model="value.ruleType"
+                           :options="zhRuleList"
+                           @change="handleBrandRuleChange">
+
               </el-cascader>
             </template>
-            <el-input v-show="false" v-model="scope.row.logisticType"></el-input>
+            <el-input v-show="false" v-model="value.logisticType"></el-input>
           </el-table-column>
           <!--<el-table-column
             label="物流小类规则"
@@ -36,7 +36,7 @@
                   :options="zhRuleList"
                   expand-trigger="hover"
                    :show-all-levels="false">
-              
+
               </el-cascader>
             </template>
           </el-table-column>-->
@@ -54,7 +54,7 @@
         <el-button size="medium" @click="handlePrev">上一步，填写商品属性</el-button>
         <el-button type="primary" size="medium" @click="handleFinishCommit">完成，提交商品</el-button>
       </el-form-item>
-      
+
     </el-form>
   </div>
 </template>
@@ -73,48 +73,48 @@
     },
     data() {
       return {
-        productRuleLadderList: [],
-        zhRuleList:[],
-        zhBrandRuleList:[]
+        zhRuleList: [],
+        zhBrandRuleList: []
       };
     },
     created() {
       this.getProductRuleLadderList();
       this.getZhRuleList();
     },
-    computed:{
-      
-    },
+    computed: {},
     methods: {
       filterMethod(query, item) {
         return item.label.indexOf(query) > -1;
       },
       getZhRuleList() {
-        fetchRuleList({"logisticType":1}).then(response => {
+        fetchRuleList({"logisticType": 1}).then(response => {
           let list = response.data.list;
           for (let i = 0; i < list.length; i++) {
             var childs = [];
             var lists = list[i].brands;
             lists.forEach(element => {
               childs.push({
-              label: element.ruleName,
-              value: element.ruleType
+                label: element.ruleName,
+                value: element.ruleType
               });
             });
             this.zhRuleList.push({
               label: list[i].ruleName,
               value: list[i].ruleType,
-             children: childs
+              children: childs
             });
           }
         });
       },
       getProductRuleLadderList() {
-        this.productRuleLadderList.push({logisticType:'1'});
-     
+        let rules = [];
+        rules.push({logisticType: '1'})
+        this.value.productLogisticRuleParamList = rules;
       },
-      handleBrandRuleChange(value){
-        console.log(value)
+      handleBrandRuleChange(value) {
+        // console.log(value)
+        this.value.productLogisticRuleParamList=[]
+        this.value.productLogisticRuleParamList.push({logisticType:'1', ruleType:value[0],ruleBrandType:value[1]})
         /*this.zhBrandRuleList=[];
         var list = [];
         var zhL = this.zhRuleList;
@@ -131,11 +131,11 @@
             });
         }*/
       },
-      handlePrev(){
+      handlePrev() {
         this.$emit('prevStep')
       },
-      handleFinishCommit(){
-        this.$emit('finishCommit',this.isEdit);
+      handleFinishCommit() {
+        this.$emit('finishCommit', this.isEdit);
       }
     }
   }

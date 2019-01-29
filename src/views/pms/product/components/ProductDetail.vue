@@ -75,7 +75,7 @@
     //商品阶梯价格
     productLadderList: [{count: 0,discount: 0,price: 0}],
     //商品物流规则
-    productRuleLadderList: [],
+    productLogisticRuleParamList: [],
     previewStatus: 0,
     price: 0,
     productAttributeCategoryId: null,
