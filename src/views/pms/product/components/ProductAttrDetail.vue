@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 50px">
     <el-form :model="value" ref="productAttrForm" label-width="120px" style="width: 720px" size="small">
-      <el-form-item label="属性类型：">
+       <!--<el-form-item label="属性类型：">
         <el-select v-model="value.productAttributeCategoryId"
                    placeholder="请选择属性类型"
                    @change="handleProductAttrChange">
@@ -125,7 +125,7 @@
             <el-input v-else class="paramInput" v-model="selectProductParam[index].value"></el-input>
           </div>
         </el-card>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="商品相册：">
         <multi-upload v-model="selectProductPics"></multi-upload>
       </el-form-item>
@@ -141,7 +141,8 @@
       </el-form-item>
       <el-form-item style="text-align: center">
         <el-button size="medium" @click="handlePrev">上一步，填写商品促销</el-button>
-        <el-button type="primary" size="medium" @click="handleNext">下一步，选择商品关联</el-button>
+        <!--<el-button type="primary" size="medium" @click="handleNext">下一步，选择商品关联</el-button>-->
+        <el-button type="primary" size="medium" @click="handleNext">下一步，设置物流规则</el-button>
       </el-form-item>
     </el-form>
   </div>

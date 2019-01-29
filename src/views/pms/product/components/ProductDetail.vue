@@ -4,7 +4,8 @@
       <el-step title="填写商品信息"></el-step>
       <el-step title="填写商品促销"></el-step>
       <el-step title="填写商品属性"></el-step>
-      <el-step title="选择商品关联"></el-step>
+      <el-step title="设置物流规则"></el-step>
+      <!--<el-step title="选择商品关联"></el-step>-->
     </el-steps>
     <product-info-detail
       v-show="showStatus[0]"
@@ -26,19 +27,20 @@
       @nextStep="nextStep"
       @prevStep="prevStep">
     </product-attr-detail>
-    <product-relation-detail
+    <ProductLogisticRuleDetail
       v-show="showStatus[3]"
       v-model="productParam"
       :is-edit="isEdit"
       @prevStep="prevStep"
       @finishCommit="finishCommit">
-    </product-relation-detail>
+    </ProductLogisticRuleDetail>
   </el-card>
 </template>
 <script>
   import ProductInfoDetail from './ProductInfoDetail';
   import ProductSaleDetail from './ProductSaleDetail';
   import ProductAttrDetail from './ProductAttrDetail';
+  import ProductLogisticRuleDetail from './ProductLogisticRuleDetail';
   import ProductRelationDetail from './ProductRelationDetail';
   import {createProduct,getProduct,updateProduct} from '@/api/product';
 
@@ -72,6 +74,7 @@
     productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
     //商品阶梯价格
     productLadderList: [{count: 0,discount: 0,price: 0}],
+    //商品物流规则
     productRuleLadderList: [],
     previewStatus: 0,
     price: 0,
@@ -106,7 +109,7 @@
   };
   export default {
     name: 'ProductDetail',
-    components: {ProductInfoDetail, ProductSaleDetail, ProductAttrDetail, ProductRelationDetail},
+    components: {ProductInfoDetail, ProductSaleDetail, ProductAttrDetail, ProductRelationDetail, ProductLogisticRuleDetail},
     props: {
       isEdit: {
         type: Boolean,
