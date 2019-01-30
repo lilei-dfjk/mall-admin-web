@@ -19,7 +19,7 @@
             align="center"
             width="400">
             <template slot-scope="scope">
-              <el-cascader v-model="value.ruleType"
+              <el-cascader v-model="selectProductLogicRuleValue"
                            :options="zhRuleList"
                            @change="handleBrandRuleChange">
 
@@ -72,16 +72,34 @@
       }
     },
     data() {
+      var _this = this;
       return {
         zhRuleList: [],
-        zhBrandRuleList: []
+        hasEditCreated: false,
+        selectProductLogicRuleValue: [],
+        productLogisticRuleParamList: []
       };
     },
     created() {
       this.getProductRuleLadderList();
       this.getZhRuleList();
     },
-    computed: {},
+    watch: {
+      productId: function (newValue) {
+        if (!this.isEdit) return;
+        if (this.hasEditCreated) return;
+        if (newValue === undefined || newValue == null || newValue === 0) return;
+        if (this.value.productLogisticRuleParamList.length >= 0) {
+          let values = this.value.productLogisticRuleParamList;
+          this.selectProductLogicRuleValue.push(values[0].ruleType, values[0].ruleBrandType);
+        }
+      }
+    },
+    computed: {
+      productId: function () {
+        return this.value.id;
+      }
+    },
     methods: {
       filterMethod(query, item) {
         return item.label.indexOf(query) > -1;
@@ -108,13 +126,16 @@
       },
       getProductRuleLadderList() {
         let rules = [];
-        rules.push({logisticType: '1'})
-        this.value.productLogisticRuleParamList = rules;
+        if (this.isEdit) {
+        } else {
+          rules.push({logisticType: '1'})
+          this.value.productLogisticRuleParamList = rules;
+        }
       },
       handleBrandRuleChange(value) {
         // console.log(value)
-        this.value.productLogisticRuleParamList=[]
-        this.value.productLogisticRuleParamList.push({logisticType:'1', ruleType:value[0],ruleBrandType:value[1]})
+        this.value.productLogisticRuleParamList = []
+        this.value.productLogisticRuleParamList.push({logisticType: '1', ruleType: value[0], ruleBrandType: value[1]})
         /*this.zhBrandRuleList=[];
         var list = [];
         var zhL = this.zhRuleList;

@@ -347,6 +347,7 @@
         total: null,
         listLoading: true,
         selectProductCateValue: null,
+        selectProductLogicRuleValue: null,
         multipleSelection: [],
         productCateOptions: [],
         brandOptions: [],
