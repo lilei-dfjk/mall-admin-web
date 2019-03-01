@@ -306,13 +306,13 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/ums/member',
     name: 'ums',
-    meta: {title: '会员', icon: 'user'},
+    meta: {title: '系统', icon: 'ums'},
     children: [
       {
         path: 'member',
         name: 'member',
         component: () => import('@/views/ums/member/index'),
-        meta: {title: '会员列表',icon: 'user'}
+        meta: {title: '会员列表',icon: 'ums-mem'}
       },
       {
         path: 'addMember',
@@ -332,7 +332,7 @@ export const constantRouterMap = [
         path: 'memberLevel',
         name: 'memberLevel',
         component: () => import('@/views/ums/memberLevel/index'),
-        meta: {title: '会员等级列表',icon: 'user'}
+        meta: {title: '会员等级列表',icon: 'ums-mem-l'}
       },
       {
         path: 'addMemberLevel',
@@ -347,7 +347,53 @@ export const constantRouterMap = [
         component: () => import('@/views/ums/memberLevel/update'),
         meta: {title: '编辑会员等级'},
         hidden:true
-      }
+      },
+      {
+        path: 'logicsRule',
+        name: 'logicsRule',
+        component: () => import('@/views/ums/logics/index'),
+        meta: {title: '物流规则',icon: 'ums-wl'}
+      },
+      {
+        path: 'addLogicsRule',
+        name: 'addLogicsRule',
+        component: () => import('@/views/ums/logics/add'),
+        meta: {title: '增加物流规则'},
+        hidden:true
+      },
+      {
+        path: 'updateLogicsRule',
+        name: 'updateLogicsRule',
+        component: () => import('@/views/ums/logics/update'),
+        meta: {title: '更新物流规则'},
+        hidden:true
+      },
+      {
+        path: 'typeList',
+        name: 'typeList',
+        component: () => import('@/views/ums/code/index'),
+        meta: {title: '代码管理',icon: 'ums-code'}
+      },
+      {
+        path: 'codeList',
+        name: 'codeList',
+        component: () => import('@/views/ums/code/codeList'),
+        meta: {title: '代码详细列表'},
+        hidden: true
+      },
+      {
+        path: 'addCode',
+        name: 'addCode',
+        component: () => import('@/views/ums/code/add'),
+        meta: {title: '增加代码信息'},
+        hidden:true
+      },{
+        path: 'updateCode',
+        name: 'updateCode',
+        component: () => import('@/views/ums/code/update'),
+        meta: {title: '更新代码信息'},
+        hidden:true
+      },
     ]
   },
   {path: '*', redirect: '/404', hidden: true}
